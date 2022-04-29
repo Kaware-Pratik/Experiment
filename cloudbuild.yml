@@ -5,8 +5,7 @@ steps:
   args:
   - '-c'
   - |
-      max=2
-      for i in `seq 2 $max`
+      for i in {1..2};
       do  
       curl \
       -i -H "Authorization: token  $$EXP_TOKEN" \
