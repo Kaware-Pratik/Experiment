@@ -5,7 +5,7 @@ steps:
   args:
   - '-c'
   - |
-      for i in {1..2};
+      for ((i=1;i<=2;i++));
       do  
       curl \
       -i -H "Authorization: token  $$EXP_TOKEN" \
