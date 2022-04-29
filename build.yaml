@@ -18,9 +18,7 @@ steps:
   secretEnv: ['EXP_TOKEN']
 
 substitutions:
-    _REPO: repo1
-    _REPO: repo2
-
+    _REPO: (repo1, repo2)
 availableSecrets:
   secretManager:
   - versionName: projects/719645512214/secrets/EXP_TOKEN/versions/1
