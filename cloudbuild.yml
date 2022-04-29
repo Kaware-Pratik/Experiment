@@ -6,19 +6,21 @@ steps:
   - '-c'
   - |
       i=1
+      j=1
       while [ "$i" -le 2 ];
       do
       curl \
       -i -H "Authorization: token  $$EXP_TOKEN" \
-      -d '{"name":"'"$_REPO"'", "private": false}' \
+      -d '{"name":"'"repo_$j"'", "private": false}' \
       https://api.github.com/user/repos
       sleep 40
       i=$(( i + 1 ))
+      j=$(( i + 1 ))
       done
   secretEnv: ['EXP_TOKEN']
 
-substitutions:
-    _REPO: [repo1,repo2]
+# substitutions:
+#     _REPO: [repo1,repo2]
 
 availableSecrets:
   secretManager:
