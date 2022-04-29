@@ -18,7 +18,8 @@ steps:
   secretEnv: ['EXP_TOKEN']
 
 substitutions:
-    _REPO: repo1, repo2
+    _REPO: repo1
+    _REPO: repo2
 
 availableSecrets:
   secretManager:
