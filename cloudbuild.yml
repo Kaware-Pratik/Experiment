@@ -8,7 +8,6 @@ steps:
       i=1
       while [ "$i" -le 2 ];
       do
-      _REPO: [repo1,repo2]
       curl \
       -i -H "Authorization: token  $$EXP_TOKEN" \
       -d '{"name":"'"$_REPO"'", "private": false}' \
