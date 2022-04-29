@@ -5,7 +5,7 @@ steps:
   args:
   - '-c'
   - |
-      repo="repo1" "repo2" "repo3"
+      repo=(repo1 repo2 repo3)
       i=1
       while [ "$i" -le 2 ];
       do
