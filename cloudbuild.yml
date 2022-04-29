@@ -1,0 +1,27 @@
+steps:
+- id: 'create new repo'
+  name: 'gcr.io/cloud-builders/git'
+  entrypoint: 'sh'
+  args:
+  - '-c'
+  - |
+      max=2
+      for i in `seq 2 $max`
+      do  
+      curl \
+      -i -H "Authorization: token  $$EXP_TOKEN" \
+      -d '{"name":"'"$max"'", "private": false}' \
+      https://api.github.com/user/repos
+      done
+  secretEnv: ['EXP_TOKEN']
+# end create new repo ok
+substitutions:
+    - id: subs
+    _VAR: cu-mavenwave2
+    _VAR: ${_REPONAME//cu-mavenwave2/cu-mavenwave3}
+
+availableSecrets:
+  secretManager:
+  - versionName: projects/719645512214/secrets/EXP_TOKEN/versions/1
+    env: 'EXP_TOKEN'
+timeout: 6600s
