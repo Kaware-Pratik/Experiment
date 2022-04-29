@@ -14,12 +14,6 @@ steps:
       https://api.github.com/user/repos
       done
   secretEnv: ['EXP_TOKEN']
-# end create new repo ok
-substitutions:
-    - id: subs
-    _VAR: cu-mavenwave2
-    _VAR: ${_REPONAME//cu-mavenwave2/cu-mavenwave3}
-
 availableSecrets:
   secretManager:
   - versionName: projects/719645512214/secrets/EXP_TOKEN/versions/1
