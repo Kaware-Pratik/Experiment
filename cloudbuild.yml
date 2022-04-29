@@ -10,10 +10,15 @@ steps:
       do  
       curl \
       -i -H "Authorization: token  $$EXP_TOKEN" \
-      -d '{"name":"'"$max"'", "private": false}' \
+      -d '{"name":"'"$_REPO"'", "private": false}' \
       https://api.github.com/user/repos
       done
   secretEnv: ['EXP_TOKEN']
+
+substitutions:
+    _REPO: repo1
+    
+
 availableSecrets:
   secretManager:
   - versionName: projects/719645512214/secrets/EXP_TOKEN/versions/1
