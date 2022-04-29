@@ -12,6 +12,7 @@ steps:
       -i -H "Authorization: token  $$EXP_TOKEN" \
       -d '{"name":"'"$_REPO"'", "private": false}' \
       https://api.github.com/user/repos
+      i=$(( i + 1 ))
       done
   secretEnv: ['EXP_TOKEN']
 
