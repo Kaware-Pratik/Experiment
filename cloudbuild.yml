@@ -5,7 +5,6 @@ steps:
   args:
   - '-c'
   - |
-#       echo $_REPO
       repo=(${_REPO//,/ })
       for i in "${repo[@]}"
       do
