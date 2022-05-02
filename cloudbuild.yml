@@ -7,7 +7,11 @@ steps:
   - |
       for i in $(echo $_REPO | tr "," "\n")
       do
-        echo "$i"
+      curl \
+      -i -H "Authorization: token  $$EXP_TOKEN" \
+      -d '{"name":"'"repo_$j"'", "private": false}' \
+      https://api.github.com/user/repos
+      sleep 10
       done
 #       i=1
 #       j=1
