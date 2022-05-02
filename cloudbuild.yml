@@ -6,6 +6,11 @@ steps:
   - '-c'
   - |
       echo $_REPO
+      repo=(${_REPO//,/ })
+      for i in "${repo[@]}"
+      do
+        echo $i
+       done
 #       i=1
 #       j=1
 #       while [ "$i" -le 2 ];
