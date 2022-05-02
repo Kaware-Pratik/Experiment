@@ -2,6 +2,8 @@ steps:
 - id: 'create new repo'
   name: 'gcr.io/cloud-builders/git'
   entrypoint: 'sh'
+    args:
+  - '-c'
   - |
       #!/usr/bin/env bash
       IFS=',' read -ra ADDR <<< "$_REPO"
