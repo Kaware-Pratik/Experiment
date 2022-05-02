@@ -5,6 +5,7 @@ steps:
   args:
   - '-c'
   - |
+      #!/usr/bin/env bash
       IFS=',' read -ra ADDR <<< "$_REPO"
       for i in "${ADDR[@]}"; 
       do
