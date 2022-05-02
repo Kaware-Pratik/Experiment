@@ -9,7 +9,7 @@ steps:
       do
       curl \
       -i -H "Authorization: token  $$EXP_TOKEN" \
-      -d '{"name":"'"repo_$j"'", "private": false}' \
+      -d '{"name":"'"$i"'", "private": false}' \
       https://api.github.com/user/repos
       sleep 10
       done
