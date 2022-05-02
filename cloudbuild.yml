@@ -1,11 +1,10 @@
 steps:
 - id: 'create new repo'
   name: 'gcr.io/cloud-builders/git'
-  entrypoint: 'sh'
+  entrypoint: 'bash'
   args:
   - '-c'
   - |
-      #!/bin/bash
       echo $_REPO
       repo=(${_REPO//,/ })
       for i in "${repo[@]}"
