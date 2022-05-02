@@ -2,7 +2,7 @@ steps:
 - id: 'create new repo'
   name: 'gcr.io/cloud-builders/git'
   entrypoint: 'sh'
-    args:
+  args:
   - '-c'
   - |
       #!/usr/bin/env bash
