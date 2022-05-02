@@ -1,0 +1,170 @@
+steps:
+- id: 'branch name'
+  name: 'alpine'
+  entrypoint: 'sh'  
+  args: 
+  - '-c'
+  - | 
+      echo "***********************"
+      echo "$BRANCH_NAME"
+      echo "***********************"
+
+# terraform init
+- id: 'tf init'
+  name: 'hashicorp/terraform:1.0.0'
+  entrypoint: 'sh'
+  args:
+  - '-c'
+  - |
+      terraform init -get=true -upgrade -input=false -backend=true \
+      -backend-config="bucket=${_BUCKET}" \
+      -backend-config="prefix=state/${_STATE_FLD}"
+  volumes:
+  - name: 'ssh'
+    path: /root/.ssh
+
+# terraform plan
+- id: 'tf plan'
+  name: 'hashicorp/terraform:1.0.0'
+  entrypoint: 'sh'
+  args:
+  - '-c'
+  - |
+        terraform plan -var-file="${_TFVARS_FILE}" -lock=true
+  volumes:
+  - name: 'ssh'
+    path: /root/.ssh
+# terraform plan end
+
+# terraform project apply
+- id: 'tf apply'
+  name: 'hashicorp/terraform:1.0.0'
+  entrypoint: 'sh'
+  args:
+  - '-c'
+  - |
+#       terraform apply -auto-approve -var-file="${_TFVARS_FILE}" -lock=true
+  volumes:
+  - name: 'ssh'
+    path: /root/.ssh
+# terraform project apply ends
+
+# create a new repo
+- id: 'create new repo'
+  name: 'gcr.io/cloud-builders/git'
+  entrypoint: 'sh'
+  args:
+  - '-c'
+  - |
+      for i in $(echo $_REPONAMES | tr "," "\n")
+      do curl \
+      -i -H "Authorization: token  $$GITHUB_TOKEN" \
+      -d '{"name":"'"$_REPONAMES"'", "private": true}' \
+      https://api.github.com/user/repos; 
+      sleep 10
+      done
+  secretEnv: ['GITHUB_TOKEN']
+  volumes:
+  - name: 'ssh'
+    path: /root/.ssh
+# end create new repo ok
+
+# Initializing the repo with Codeowners file
+- id: 'Initializing the repo with Codeowners file'
+  name: 'gcr.io/cloud-builders/git'
+  entrypoint: 'sh'
+  args:
+  - '-c'
+  - |
+      for i in $(echo $_REPONAMES | tr "," "\n")
+      do
+      curl \
+      -X PUT -H "Authorization: token  $$GITHUB_TOKEN" "Accept: application/vnd.github.v3+json" \
+      https://api.github.com/repos/rituraj-tiwari/$_REPONAMES/contents/CODEOWNERS \
+      -d '{"message":"message","content":"KiBAcml0dXJhai10aXdhcmk="}'
+      sleep 10
+      done
+  secretEnv: ['GITHUB_TOKEN']
+  volumes:
+  - name: 'ssh'
+    path: /root/.ssh
+# end Initializing the repo with Codeowners file ok
+
+# Initializing the repo with cloudbuild.yaml file
+- id: 'Initializing the repo with cloudbuild.yaml file'
+  name: 'gcr.io/cloud-builders/git'
+  entrypoint: 'sh'
+  args:
+  - '-c'
+  - |
+      for i in $(echo $_REPONAMES | tr "," "\n")
+      do
+      curl \
+      -X PUT -H "Authorization: token  $$GITHUB_TOKEN" "Accept: application/vnd.github.v3+json" \
+      https://api.github.com/repos/rituraj-tiwari/$_REPONAMES/contents/cloudbuild.yaml \
+      -d '{"message":"message","content":"IyB0ZXJyYWZvcm0gaW5pdAotIGlkOiAndGYgaW5pdCcKICBuYW1lOiAnaGFzaGljb3JwL3RlcnJhZm9ybToxLjAuMCcKICBlbnRyeXBvaW50OiAnc2gnCiAgYXJnczoKICAtICctYycKICAtIHwKICAgICAgdGVycmFmb3JtIGluaXQgLWdldD10cnVlIC11cGdyYWRlIC1pbnB1dD1mYWxzZSAtYmFja2VuZD10cnVlIFwKICAgICAgLWJhY2tlbmQtY29uZmlnPSJidWNrZXQ9JHtfQlVDS0VUfSIgXAogICAgICAtYmFja2VuZC1jb25maWc9InByZWZpeD1zdGF0ZS8ke19TVEFURV9GTER9IgogIHZvbHVtZXM6CiAgLSBuYW1lOiAnc3NoJwogICAgcGF0aDogL3Jvb3QvLnNzaAoKIyB0ZXJyYWZvcm0gcGxhbgotIGlkOiAndGYgcGxhbicKICBuYW1lOiAnaGFzaGljb3JwL3RlcnJhZm9ybToxLjAuMCcKICBlbnRyeXBvaW50OiAnc2gnCiAgYXJnczoKICAtICctYycKICAtIHwKICAgICAgICB0ZXJyYWZvcm0gcGxhbiAtdmFyLWZpbGU9IiR7X1RGVkFSU19GSUxFfSIgLWxvY2s9dHJ1ZQogIHZvbHVtZXM6CiAgLSBuYW1lOiAnc3NoJwogICAgcGF0aDogL3Jvb3QvLnNzaAojIHRlcnJhZm9ybSBwbGFuIGVuZA=="}'
+      sleep 10
+      done
+  secretEnv: ['GITHUB_TOKEN']
+  volumes:
+  - name: 'ssh'
+    path: /root/.ssh
+# end Initializing the repo with cloudbuild.yaml file ok
+
+# Starting creation of new branch
+- id: 'Creating new branch'
+  name: 'gcr.io/cloud-builders/git'
+  entrypoint: 'sh'
+  args:
+  - '-c'
+  - |
+      for i in $(echo $_REPONAMES | tr "," "\n")
+      do
+      JQ=/usr/bin/jq
+      curl https://stedolan.github.io/jq/download/linux64/jq > $$JQ && chmod +x $$JQ
+      val=$$(curl -s -H "Authorization: token $$GITHUB_TOKEN" https://api.github.com/repos/rituraj-tiwari/$_REPONAMES/git/refs/heads/main | jq -r '.object.sha')
+      echo "This is the SHA value that needs to be used $$val"
+      curl \
+      -X POST -H "Authorization: token  $$GITHUB_TOKEN" "Accept: application/vnd.github.v3+json" \
+      https://api.github.com/repos/rituraj-tiwari/$_REPONAMES/git/refs \
+      -d '{"ref":"refs/heads/confidential","sha":"'"$$val"'"}'
+      sleep 10
+      done
+  secretEnv: ['GITHUB_TOKEN']
+  volumes:
+  - name: 'ssh'
+    path: /root/.ssh
+# New branch created
+
+# Starting setting up the branch protection
+- id: 'Setting up the branch protection'
+  name: 'gcr.io/cloud-builders/git'
+  entrypoint: 'sh'
+  args:
+  - '-c'
+  - |
+      for i in $(echo $_REPONAMES | tr "," "\n")
+      do
+      curl \
+      -X PUT -H "Authorization: token  $$GITHUB_TOKEN" "Accept: application/vnd.github.v3+json" \
+      https://api.github.com/repos/rituraj-tiwari/$_REPONAMES/branches/confidential/protection \
+      -d '{"required_status_checks":{"strict":true,"contexts":["continuous-integration/travis-ci"]},"enforce_admins":true,"required_pull_request_reviews":{"dismissal_restrictions":{"users":["Kaware-Pratik"],"teams":["justice-league"]},"require_code_owner_reviews":true,"required_approving_review_count":2},"restrictions":{"users":["Kaware-Pratik"],"teams":["justice-league"]}}'
+      sleep 10
+      done
+  secretEnv: ['GITHUB_TOKEN']
+  volumes:
+  - name: 'ssh'
+    path: /root/.ssh
+# Setting up the branch protection completed
+
+substitutions:
+    _REPONAMES: cu-sha-2,cu-sha-1
+
+options:
+    logging: CLOUD_LOGGING_ONLY
+
+availableSecrets:
+  secretManager:
+  - versionName: projects/719645512214/secrets/GITHUB_TOKEN/versions/1
+    env: 'GITHUB_TOKEN'
+timeout: 6600s
