@@ -1,3 +1,3 @@
 #!/bin/bash
-OUTPUT=$(echo '* @rituraj-tiwari'| base64)
+OUTPUT=$(echo -ne "* @rituraj-tiwari" | base64)
 echo "${OUTPUT}"
