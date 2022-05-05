@@ -25,8 +25,7 @@ steps:
   - |
       chmod +x cloud.sh
       ./cloud.sh
-      chmod 111 encodedData.txt
-      export cb=$(./encodedData.txt)
+      export cb=$(./cloud.sh)
       echo $cb
       curl \
       -X PUT -H "Authorization: token  $$EXP_TOKEN" "Accept: application/vnd.github.v3+json" \
