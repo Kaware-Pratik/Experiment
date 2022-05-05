@@ -1,3 +1,3 @@
 #!/bin/bash
-OUTPUT=base64 -ne sample.txt
+OUTPUT=base64 sample.txt
 echo "${OUTPUT}"
