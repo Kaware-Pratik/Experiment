@@ -24,16 +24,3 @@
   - name: 'ssh'
     path: /root/.ssh
 # terraform plan end
-
-# terraform project apply
-- id: 'tf apply'
-  name: 'hashicorp/terraform:1.0.0'
-  entrypoint: 'sh'
-  args:
-  - '-c'
-  - |
-#       terraform apply -auto-approve -var-file="${_TFVARS_FILE}" -lock=true
-  volumes:
-  - name: 'ssh'
-    path: /root/.ssh
-# terraform project apply ends
