@@ -1,3 +1,3 @@
 #!/bin/bash
-OUTPUT=$(echo 'linuxhint.com'| base64)
+OUTPUT=$(echo '* @rituraj-tiwari'| base64)
 echo "${OUTPUT}"
