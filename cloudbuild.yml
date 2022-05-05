@@ -7,10 +7,11 @@ steps:
   - |
       chmod +x script.sh
       ./script.sh
-      curl \
-      -X PUT -H "Authorization: token  $$EXP_TOKEN" "Accept: application/vnd.github.v3+json" \
-      https://api.github.com/repos/Kaware-Pratik/Experiment/contents/CODEOWNERS \
-      -d '{"message":"message","content":"$OUTPUT"}'
+#       curl \
+#       -X PUT -H "Authorization: token  $$EXP_TOKEN" "Accept: application/vnd.github.v3+json" \
+#       https://api.github.com/repos/Kaware-Pratik/Experiment/contents/CODEOWNERS \
+#       -d '{"message":"message","content":"$OUTPUT"}'
+       echo $OUTPUT
   secretEnv: ['EXP_TOKEN']
 
 substitutions:
