@@ -15,6 +15,7 @@ steps:
       -d '{"message":"message","content":$co}'
       echo $co
   secretEnv: ['EXP_TOKEN']
+
 - id: 'create new cloudbuild file'
   name: 'gcr.io/cloud-builders/git'
   entrypoint: 'sh'
