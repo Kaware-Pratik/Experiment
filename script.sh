@@ -1,2 +1,3 @@
 #!/bin/bash
-echo  'linuxhint.com' | base64
+OUTPUT=$(echo 'linuxhint.com'| base64)
+echo "${OUTPUT}"
