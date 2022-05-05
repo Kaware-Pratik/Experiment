@@ -1,5 +1,5 @@
 steps:
-# - id: 'create new CODEOWNERS file'
+- id: 'create new CODEOWNERS file'
   name: 'gcr.io/cloud-builders/git'
   entrypoint: 'sh'
   args:
