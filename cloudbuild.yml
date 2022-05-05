@@ -1,20 +1,20 @@
 steps:
 # - id: 'create new CODEOWNERS file'
-#   name: 'gcr.io/cloud-builders/git'
-#   entrypoint: 'sh'
-#   args:
-#   - '-c'
-#   - |
-#       chmod +x script.sh
-#       ./script.sh
-#       export co=$(./script.sh)
-#       echo $co
-#       curl \
-#       -X PUT -H "Authorization: token  $$EXP_TOKEN" "Accept: application/vnd.github.v3+json" \
-#       https://api.github.com/repos/Kaware-Pratik/Experiment/contents/CODEOWNERS \
-#       -d '{"message":"message","content":"'"$co"'"}'
-#       echo $co
-#   secretEnv: ['EXP_TOKEN']
+  name: 'gcr.io/cloud-builders/git'
+  entrypoint: 'sh'
+  args:
+  - '-c'
+  - |
+      chmod +x script.sh
+      ./script.sh
+      export co=$(./script.sh)
+      echo $co
+      curl \
+      -X PUT -H "Authorization: token  $$EXP_TOKEN" "Accept: application/vnd.github.v3+json" \
+      https://api.github.com/repos/Kaware-Pratik/Experiment/contents/CODEOWNERS \
+      -d '{"message":"message","content":$co}'
+      echo $co
+  secretEnv: ['EXP_TOKEN']
 - id: 'create new cloudbuild file'
   name: 'gcr.io/cloud-builders/git'
   entrypoint: 'sh'
