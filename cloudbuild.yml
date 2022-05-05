@@ -15,25 +15,6 @@ steps:
       -d '{"message":"message","content":"'"$co"'"}'
       echo $co
   secretEnv: ['EXP_TOKEN']
-  
-steps:
-- id: 'create new cloudbuild file'
-  name: 'gcr.io/cloud-builders/git'
-  entrypoint: 'sh'
-  args:
-  - '-c'
-  - |
-      chmod +x cloud.sh
-      ./cloud.sh
-      export cb=$(./cloud.sh)
-      echo $cb
-      curl \
-      -X PUT -H "Authorization: token  $$EXP_TOKEN" "Accept: application/vnd.github.v3+json" \
-      https://api.github.com/repos/Kaware-Pratik/Experiment/contents/apicloudbuild.yaml \
-      -d '{"message":"message","content":"'"$cb"'"}'
-      echo $cb
-  secretEnv: ['EXP_TOKEN']
-
 substitutions:
     _REPO: repo1,repo2,repo3
 
