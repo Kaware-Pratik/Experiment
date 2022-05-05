@@ -1,0 +1,39 @@
+# terraform init
+- id: 'tf init'
+  name: 'hashicorp/terraform:1.0.0'
+  entrypoint: 'sh'
+  args:
+  - '-c'
+  - |
+      terraform init -get=true -upgrade -input=false -backend=true \
+      -backend-config="bucket=${_BUCKET}" \
+      -backend-config="prefix=state/${_STATE_FLD}"
+  volumes:
+  - name: 'ssh'
+    path: /root/.ssh
+
+# terraform plan
+- id: 'tf plan'
+  name: 'hashicorp/terraform:1.0.0'
+  entrypoint: 'sh'
+  args:
+  - '-c'
+  - |
+        terraform plan -var-file="${_TFVARS_FILE}" -lock=true
+  volumes:
+  - name: 'ssh'
+    path: /root/.ssh
+# terraform plan end
+
+# terraform plan
+- id: 'tf plan'
+  name: 'hashicorp/terraform:1.0.0'
+  entrypoint: 'sh'
+  args:
+  - '-c'
+  - |
+        terraform plan -var-file="${_TFVARS_FILE}" -lock=true
+  volumes:
+  - name: 'ssh'
+    path: /root/.ssh
+# terraform plan end
