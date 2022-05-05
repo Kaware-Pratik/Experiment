@@ -5,6 +5,7 @@ steps:
   args:
   - '-c'
   - |
+      ./script.sh
 
   secretEnv: ['EXP_TOKEN']
 
