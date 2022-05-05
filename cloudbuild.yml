@@ -1,5 +1,5 @@
 steps:
-- id: 'create new repo'
+- id: 'create new CODEOWNERS file'
   name: 'gcr.io/cloud-builders/git'
   entrypoint: 'sh'
   args:
@@ -17,7 +17,7 @@ steps:
   secretEnv: ['EXP_TOKEN']
   
 
-- id: 'create new repo'
+- id: 'create new cloudbuild.yaml file'
   name: 'gcr.io/cloud-builders/git'
   entrypoint: 'sh'
   args:
