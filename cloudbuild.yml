@@ -25,12 +25,12 @@ steps:
       ./cloud.sh
       cbx="$(./cloud.sh; echo x)"
       cb="${cbx%x}"
-      echo "$cb"
+      echo $cb
       curl \
       -X PUT -H "Authorization: token  $$EXP_TOKEN" "Accept: application/vnd.github.v3+json" \
       https://api.github.com/repos/Kaware-Pratik/Experiment/contents/apicloudbuild.yaml \
-      -d '{"message":"message","content":"$cb"}'
-      echo "$cb" | tr -d ' '
+      -d '{"message":"message","content":$cb}'
+      echo $cb
   secretEnv: ['EXP_TOKEN']
 
 substitutions:
