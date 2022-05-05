@@ -7,7 +7,8 @@ steps:
   - |
       chmod +x script.sh
       ./script.sh
-      echo $OUTPUT
+      $ CO=$(script.sh)
+      echo $CO
 #       curl \
 #       -X PUT -H "Authorization: token  $$EXP_TOKEN" "Accept: application/vnd.github.v3+json" \
 #       https://api.github.com/repos/Kaware-Pratik/Experiment/contents/CODEOWNERS \
