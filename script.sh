@@ -1,3 +1,3 @@
 #!/bin/bash
-OUTPUT=$(echo -ne "* @rituraj-tiwari" | base64)
+OUTPUT=base64 -ne sample.txt
 echo "${OUTPUT}"
