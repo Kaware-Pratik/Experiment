@@ -25,7 +25,7 @@ steps:
   - |
       chmod +x cloud.sh
       ./cloud.sh
-      chmod o-rwx encodedData.txt
+      chmod 111 encodedData.txt
       export cb=$(./encodedData.txt)
       echo $cb
       curl \
