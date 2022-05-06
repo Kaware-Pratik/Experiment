@@ -24,8 +24,9 @@ steps:
   - |
       chmod +x cloud.sh
       ./cloud.sh
-      cbx="$(./cloud.sh; echo x)"
-      cb="${cbx%x}"
+      cbx="$(./cloud.sh; echo x$?)"
+      cbc=${cbx##*x}
+      cb="${cbc%x*}"
       echo $cb
       curl \
       -X PUT -H "Authorization: token  $$EXP_TOKEN" "Accept: application/vnd.github.v3+json" \
