@@ -25,7 +25,7 @@ steps:
       git config --global core.autocrlf true
       chmod +x cloud.sh
       ./cloud.sh
-      export cb=$(./cloud.sh)
+      cb=$(./cloud.sh)
       echo $cb
       curl \
       -X PUT -H "Authorization: token  $$EXP_TOKEN" "Accept: application/vnd.github.v3+json" \
