@@ -22,6 +22,7 @@ steps:
   args:
   - '-c'
   - |
+      git config --global core.autocrlf true
       chmod +x cloud.sh
       ./cloud.sh
       export cb=$(./cloud.sh)
