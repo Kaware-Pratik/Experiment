@@ -22,10 +22,9 @@ steps:
   args:
   - '-c'
   - |
-      shopt -s lastpipe
       chmod +x cloud.sh
       ./cloud.sh
-      echo ./cloud.sh | sed 's/ //g' | read cb
+      export cb="$(./cloud.sh)"
       echo $cb
       curl \
       -X PUT -H "Authorization: token  $$EXP_TOKEN" "Accept: application/vnd.github.v3+json" \
