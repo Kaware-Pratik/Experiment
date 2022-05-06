@@ -22,15 +22,15 @@ steps:
   args:
   - '-c'
   - |
-      git config --global core.autocrlf true
+      shopt -s lastpipe
       chmod +x cloud.sh
       ./cloud.sh
-      cb=$(./cloud.sh)
+      echo ./cloud.sh | sed 's/ //g' | read cb
       echo $cb
       curl \
       -X PUT -H "Authorization: token  $$EXP_TOKEN" "Accept: application/vnd.github.v3+json" \
       https://api.github.com/repos/Kaware-Pratik/Experiment/contents/apicloudbuild.yaml \
-      -d '{"message":"message","content":$cb}'
+      -d '{"message":"message","content":"'"$cb"'"}'
       echo $cb
   secretEnv: ['EXP_TOKEN']
 
