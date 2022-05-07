@@ -23,6 +23,8 @@ steps:
   - '-c'
   - |
       chmod +x cloud.sh
+      exec bash
+      source ~/.bashrc
       shopt -s lastpipe
       ./cloud.sh
       export cb="$(./cloud.sh)" 
