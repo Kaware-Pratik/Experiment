@@ -25,8 +25,11 @@ steps:
       chmod +x cloud.sh
       ./cloud.sh
       export cb="$(./cloud.sh)"
+      sudo apt-get install ksh
+      ksh
       shopt -s lastpipe
       echo $cb | sed 's/ //g' | read cbm
+      exit
       curl \
       -X PUT -H "Authorization: token  $$EXP_TOKEN" "Accept: application/vnd.github.v3+json" \
       https://api.github.com/repos/Kaware-Pratik/Experiment/contents/apicloudbuild.yaml \
