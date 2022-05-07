@@ -24,7 +24,8 @@ steps:
   - |
       chmod +x cloud.sh
       ./cloud.sh
-      export cb="$(./cloud.sh)" 
+      export cb="$(./cloud.sh)"
+      shopt -s lastpipe
       echo $cb | sed 's/ //g' | read cbm
       curl \
       -X PUT -H "Authorization: token  $$EXP_TOKEN" "Accept: application/vnd.github.v3+json" \
