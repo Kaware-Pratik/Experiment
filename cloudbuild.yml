@@ -23,11 +23,8 @@ steps:
   - '-c'
   - |
       chmod +x cloud.sh
-      exec bash
-      source ~/.bashrc
       shopt -s lastpipe
       ./cloud.sh
-      exec zsh
       export cb="$(./cloud.sh)" 
       echo $cb | sed 's/ //g' | read cbm
       curl \
