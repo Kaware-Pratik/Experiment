@@ -23,7 +23,7 @@ steps:
   - '-c'
   - |
       chmod +x cloud.sh
-      ccat /etc/shells
+      cat /etc/shells
       shopt -s lastpipe
       ./cloud.sh
       export cb="$(./cloud.sh)" 
