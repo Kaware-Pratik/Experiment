@@ -23,7 +23,7 @@ steps:
   - '-c'
   - |
       chmod +x cloud.sh
-      echo $SHELL
+      chsh -l
       shopt -s lastpipe
       ./cloud.sh
       export cb="$(./cloud.sh)" 
