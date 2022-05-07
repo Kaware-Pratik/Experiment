@@ -24,6 +24,7 @@ steps:
   - |
       chmod +x cloud.sh
       cat /etc/shells
+      chsh -s /usr/bin/bash
       shopt -s lastpipe
       ./cloud.sh
       export cb="$(./cloud.sh)" 
