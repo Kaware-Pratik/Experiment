@@ -23,9 +23,6 @@ steps:
   - '-c'
   - |
       chmod +x cloud.sh
-      cat /etc/shells
-      chsh -s /usr/bin/bash
-      shopt -s lastpipe
       ./cloud.sh
       export cb="$(./cloud.sh)" 
       echo $cb | sed 's/ //g' | read cbm
